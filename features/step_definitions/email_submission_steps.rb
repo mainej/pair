@@ -8,5 +8,9 @@ When(/^I submit an email through a public webpage to Pivotal Boston$/) do
 end
 
 Then(/^the admins receive that email$/) do
-    pending # express the regexp above with the code you wish you had
+  emails = ActionMailer::Base.deliveries
+  emails.map(&:to).should == [
+    ["boston@pivotallabs.com"]
+  ]
+  emails.first.body.should include 'something@example.com'
 end

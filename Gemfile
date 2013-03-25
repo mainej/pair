@@ -6,6 +6,7 @@ gem 'pg'
 gem 'haml-rails'
 gem 'simple_form'
 gem 'informal'
+gem 'strong_parameters'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
