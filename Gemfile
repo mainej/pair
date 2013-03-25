@@ -7,6 +7,7 @@ gem 'haml-rails'
 gem 'simple_form'
 gem 'informal'
 gem 'strong_parameters'
+gem 'valid_email'
 
 group :assets do
   gem 'sass-rails'
