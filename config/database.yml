@@ -1,0 +1,21 @@
+defaults: &defaults
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: postgres
+  password:
+
+development:
+  database: pair_development
+  <<: *defaults
+
+test: &test
+  database: pair_test
+  <<: *defaults
+
+production:
+  database: pair_production
+  <<: *defaults
+
+cucumber:
+  <<: *test
