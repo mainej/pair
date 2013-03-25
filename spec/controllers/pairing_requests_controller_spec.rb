@@ -6,10 +6,16 @@ describe PairingRequestsController do
       post :create, pairing_request: {email: 'something@example.com'}
     end
 
-    it "redirect back to root" do
+    it "redirects back to root" do
       PairingRequest.stub(:request)
       create
       response.should redirect_to root_url
+    end
+
+    it "shows a 'success' message" do
+      PairingRequest.stub(:request)
+      create
+      flash.notice.should be
     end
 
     it "sends an email" do
