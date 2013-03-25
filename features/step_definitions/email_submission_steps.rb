@@ -3,7 +3,8 @@ Given(/^a marketing page$/) do
 end
 
 When(/^I submit an email through a public webpage to Pivotal Boston$/) do
-    pending # express the regexp above with the code you wish you had
+  fill_in :pairing_request_email, with: 'something@example.com'
+  click_button 'Submit'
 end
 
 Then(/^the admins receive that email$/) do
