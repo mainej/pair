@@ -7,33 +7,37 @@ describe PairingRequestsController do
     end
 
     before(:each) do
-      fake_request = stub(:fake_request, valid?: true)
       PairingRequest.stub(:request) { fake_request }
     end
 
-    it "redirects back to root" do
-      create
-      response.should redirect_to root_url
-    end
+    context "when given a valid email" do
+      let(:fake_request) { PairingRequest.new(email: 'stub@example.com') }
 
-    it "shows a 'success' message" do
-      create
-      flash.notice.should be
-    end
+      it "redirects back to root" do
+        create
+        response.should redirect_to root_url
+      end
 
-    it "sends an email" do
-      PairingRequest.should_receive(:request).with('email' => 'something@example.com')
-      create
+      it "shows a 'success' message" do
+        create
+        flash.notice.should be
+      end
+
+      it "sends an email" do
+        PairingRequest.should_receive(:request).with('email' => 'something@example.com')
+        create
+      end
     end
 
     context "when given an invalid email" do
-      let(:fake_request) { stub(:fake_request, valid?: false) }
+      let(:fake_request) { PairingRequest.new(email: '') }
 
-      before do
-        PairingRequest.stub(:request) { fake_request }
+      it "renders the welcome template" do
+        create
+        response.should render_template("welcome/index")
       end
 
-      it "does not render a flash" do
+      it "does not render a 'success' message" do
         create
         flash.notice.should_not be
       end
@@ -41,11 +45,6 @@ describe PairingRequestsController do
       it "sets up the invalid pairing request, to be rendered" do
         create
         assigns(:pairing_request).should == fake_request
-      end
-
-      it "renders the welcome template" do
-        create
-        response.should render_template("welcome/index")
       end
     end
   end
