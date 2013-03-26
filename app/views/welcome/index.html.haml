@@ -5,7 +5,7 @@
     %h3 Sit with us for an hour or so.  Chat or work on your web or mobile project.  No charge.
     %br
 
-    = simple_form_for PairingRequest.new do |f|
+    = simple_form_for @pairing_request || PairingRequest.new do |f|
       .row.collapse
         .small-10.columns
           = f.input :email, label: false, placeholder: 'email@example.com'

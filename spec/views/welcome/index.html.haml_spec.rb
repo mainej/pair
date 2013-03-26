@@ -9,4 +9,13 @@ describe "welcome/index.html.haml" do
       form.should have_selector("input[type='submit']")
     end
   end
+
+  it "renders validation errors" do
+    assign(:pairing_request, PairingRequest.new(email: 'bad').tap(&:valid?))
+    render
+
+    Capybara.string(rendered).find("form[action='#{pairing_requests_path}']").tap do |form|
+      form.should have_selector(".error input[name='pairing_request[email]'][value='bad']")
+    end
+  end
 end
