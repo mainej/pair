@@ -7,7 +7,7 @@ describe PairingRequestsController do
     end
 
     before(:each) do
-      PairingRequest.stub(:request) { fake_request }
+      PairingRequest.better_stub(:deliver) { fake_request }
     end
 
     context "when given a valid email" do
@@ -24,7 +24,7 @@ describe PairingRequestsController do
       end
 
       it "sends an email" do
-        PairingRequest.should_receive(:request).with('email' => 'something@example.com')
+        PairingRequest.better_receive(:deliver).with('email' => 'something@example.com')
         create
       end
     end

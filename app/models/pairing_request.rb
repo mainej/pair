@@ -5,7 +5,7 @@ class PairingRequest
 
   validates :email, presence: true, email: true
 
-  def self.request(attrs)
+  def self.deliver(attrs)
     req = new(attrs)
     req.deliver_request
     req
