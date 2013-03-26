@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "welcome/index.html.haml" do
   it "has a 'submit email' form" do
+    assign(:pairing_request, PairingRequest.new)
     render
 
     Capybara.string(rendered).find("form[action='#{pairing_requests_path}']").tap do |form|
