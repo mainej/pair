@@ -13,7 +13,7 @@ class PairingRequest
 
   def deliver_request
     if valid?
-      PairingRequestMailer.lets_pair(email).deliver
+      PairingRequestMailer.deliver_lets_pair(email)
     end
   end
 end

@@ -3,20 +3,18 @@ require 'spec_helper'
 describe PairingRequest do
   describe 'request' do
     before do
-      PairingRequestMailer.stub(:lets_pair)
+      PairingRequestMailer.stub(:deliver_lets_pair)
     end
 
     it 'should create an email' do
       email = 'something@example.com'
-      fake_mail = stub(:fake_mail)
-      fake_mail.should_receive(:deliver)
-      PairingRequestMailer.should_receive(:lets_pair).with(email) { fake_mail }
+      PairingRequestMailer.should_receive(:deliver_lets_pair).with(email)
 
       PairingRequest.request(email: email)
     end
 
     it "does not send the email if the email address is invalid" do
-      PairingRequestMailer.should_not_receive(:lets_pair)
+      PairingRequestMailer.should_not_receive(:deliver_lets_pair)
       PairingRequest.request(email: nil)
     end
 
